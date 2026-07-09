@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: internkevinc-task4-run
+  namespace: aiea-interns
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: run
+          image: pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime
+          command:
+            - "bash"
+            - "-c"
+            - |
+              set -e
+              export OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 NUMEXPR_NUM_THREADS=8
+              source activate /data/conda_envs/py38
+              cd /data/Neural-Explanations-LLMs
+              rm -rf exp/snli_1.0_dev-6-sentence-5
+              python -u code/analyze.py
+          resources:
+            requests:
+              cpu: "8"
+              memory: "16Gi"
+            limits:
+              cpu: "8"
+              memory: "64Gi"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: internkevinc-task4

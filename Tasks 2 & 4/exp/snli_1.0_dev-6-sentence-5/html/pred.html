@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<style>
+.currentsort {
+  background-color: black;
+  font-weight: bold;
+}
+.sort-up::after {
+  content: " - (up)";
+}
+.sort-down::after {
+  content: " - (down)";
+}
+.sentence {
+    line-height: 3em;
+}
+.neuron:hover {
+    background-color: yellow;
+}
+.unit {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.card-deck-b {
+    padding-left: 1em;
+    paddding-right: 1em;
+}
+.word {
+    margin-right: 10px;
+    position: relative;
+}
+.contradiction {
+    color: darkred;
+    font-weight: bold;
+}
+.entailment {
+    color: darkgreen;
+    font-weight: bold;
+}
+.neutral {
+    font-weight: bold;
+}
+.word::before {
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    content: attr(data-tag);
+    text-align: center;
+    color: #aaa;
+    font-size: 0.8em;
+}
+.tooltip-inner {
+    background: none;
+    color: #212529;
+    text-align: left;
+}
+.fname {
+    font-weight: bold;
+}
+.correct {
+    background-color: rgba(0, 255, 0, 0.1);
+}
+.incorrect {
+    background-color: rgba(255, 0, 0, 0.1);
+}
+.neuron {
+    margin-right: 10px;
+    cursor: pointer;
+}
+.sentence {
+    background: none;
+}
+.cm-section {
+    margin-top: 5px;
+}
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-light justify-content-center mt-4">
+    <form class="form-inline">
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby currentsort sort-up" data-sortby="unit">Unit</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="iou">IoU</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="label">Label</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="category">Category</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="correct">Correct</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="entail">Entailment</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="neutral">Neutral</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="contradiction">Contradiction</button>
+        <button type="button" class="btn btn-primary btn-sm mr-3 sortby" data-sortby="snli-entropy">Entropy</button>
+    </form>
+</nav>
+<div class="card-deck-b">
+
+
+
+
+
+
+
+
+
+<div class="card unit" data-unit="8" data-iou="0.241" data-label="((((hyp:tok:for OR hyp:tok:to) OR hyp:tok:tall) OR hyp:tok:after) OR hyp:tok:their)" data-category="((((hyp OR hyp) OR hyp) OR hyp) OR hyp)" data-entail="-0.015419302" data-neutral="0.023419263" data-contra="0.00020886032" data-snli-entropy="0.9280432012932771">
+  <div class="card-body">
+    <h5 class="card-title">Unit 8 ((((hyp:tok:for OR hyp:tok:to) OR hyp:tok:tall) OR hyp:tok:after) OR hyp:tok:their)</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><span class='category text-muted'>((((hyp OR hyp) OR hyp) OR hyp) OR hyp)</span> IoU: 0.241 Entail: <span class='word' data-act='-0.154'>-0.015</span> Neutral: <span class='word' data-act='0.234'>0.023</span> Contra: <span class='word' data-act='0.002'>0.000</span></h6>
+    
+<div class="accordion mb-2" id="a8-accordion">
+  <div class="card">
+    <div class="card-header" id="a8-0-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#a8-0">
+        Highest Act (SNLI)
+        </button>
+      </h2>
+    </div>
+
+    <div id="a8-0" class="collapse" data-parent="#a8-accordion">
+      <div class="card-body">
+          <ul class='list-group list-group-flush'><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>guy</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>inline</span><span class='word' data-act='0'>skates</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>white</span><span class='word' data-act='0'>hat</span><span class='word' data-act='0'>is</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>yellow</span><span class='word' data-act='0'>rail</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>guy</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>inline</span><span class='word' data-act='0'>skates</span><span class='word' data-act='0'>is</span><span class='word' data-act='0'>trying</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>impress</span><span class='word' data-act='0'>his</span><span class='word' data-act='0'>girlfriend</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.63'>26.29</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>is</span><span class='word' data-act='0'>doing</span><span class='word' data-act='0'>tricks</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>skateboard</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>tall</span><span class='word' data-act='0'>human</span><span class='word' data-act='0'>doing</span><span class='word' data-act='0'>tricks</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.62'>26.23</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>people</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>gathered</span><span class='word' data-act='0'>around</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>table</span><span class='word' data-act='0'>filled</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>food</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>family</span><span class='word' data-act='0'>has</span><span class='word' data-act='0'>thanksgiving</span><span class='word' data-act='0'>dinner</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.51'>25.13</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>women</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>bathing</span><span class='word' data-act='0'>suits</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>together</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>two</span><span class='word' data-act='0'>-</span><span class='word' data-act='0'>seat</span><span class='word' data-act='0'>kayak</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>water</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>trees</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>background</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>women</span><span class='word' data-act='0'>who</span><span class='word' data-act='0'>ca</span><span class='word' data-act='0'>n&apos;t</span><span class='word' data-act='0'>manage</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>see</span><span class='word' data-act='0'>eye</span><span class='word' data-act='0'>-</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>-</span><span class='word' data-act='0'>eye</span><span class='word' data-act='0'>try</span><span class='word' data-act='0'>working</span><span class='word' data-act='0'>together</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>win</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>event</span><span class='word' data-act='0'>before</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>company</span><span class='word' data-act='0'>retreat</span><span class='word' data-act='0'>ends</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.50'>25.03</span></span> <strong>GT</strong> <span class='word UNK'>UNK</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>snowboarder</span><span class='word' data-act='0'>jumps</span><span class='word' data-act='0'>over</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>barrel</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>snowboarder</span><span class='word' data-act='0'>does</span><span class='word' data-act='0'>jumps</span><span class='word' data-act='0'>over</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>barrel</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>train</span><span class='word' data-act='0'>for</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>competition</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.50'>24.97</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="a8-1-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#a8-1">
+        Other examples of mask (SNLI)
+        </button>
+      </h2>
+    </div>
+
+    <div id="a8-1" class="collapse" data-parent="#a8-accordion">
+      <div class="card-body">
+          <ul class='list-group list-group-flush'><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>women</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>embracing</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>holding</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>go</span><span class='word' data-act='0'>packages</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>sisters</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>hugging</span><span class='word' data-act='0'>goodbye</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>holding</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>go</span><span class='word' data-act='0'>packages</span><span class='word' data-act='0'>after</span><span class='word' data-act='0'>just</span><span class='word' data-act='0'>eating</span><span class='word' data-act='0'>lunch</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>numbered</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>wash</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word entailment'>entailment</span> <strong>PRED</strong> <span class='word entailment'>entailment</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>at</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>ballgame</span><span class='word' data-act='0'>wash</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='0.15'>1.50</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>jackets</span><span class='word' data-act='0'>walk</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>school</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='0.21'>2.11</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>selling</span><span class='word' data-act='0'>donuts</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>customer</span><span class='word' data-act='0'>during</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>world</span><span class='word' data-act='0'>exhibition</span><span class='word' data-act='0'>event</span><span class='word' data-act='0'>held</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>city</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>angeles</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>selling</span><span class='word' data-act='0'>donuts</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>customer</span><span class='word' data-act='0'>during</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>world</span><span class='word' data-act='0'>exhibition</span><span class='word' data-act='0'>event</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>people</span><span class='word' data-act='0'>wait</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>line</span><span class='word' data-act='0'>behind</span><span class='word' data-act='0'>him</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="cm-section">
+    
+<div class="cm">
+<h5 class="text-muted cmtitle">SNLI (Acc: 0.80 Entropy: 0.93)</h5>
+<table class="table card-table cmtable">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">PRED: entail</th>
+      <th scope="col">PRED: neutral</th>
+      <th scope="col">PRED: contra </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">GT: entail</th>
+      <td>166</td>
+      <td>69</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th scope="row">GT: neutral</th>
+      <td>37</td>
+      <td>817</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th scope="row">GT: contra</th>
+      <td>19</td>
+      <td>90</td>
+      <td>213</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="card unit" data-unit="6" data-iou="0.233" data-label="(((((NOT oth:overlap:overlap25) AND pre:tag:nn) AND (NOT hyp:tok:people)) AND (NOT hyp:tok:walking)) OR hyp:tok:tall)" data-category="(((((NOT oth) AND pre) AND (NOT hyp)) AND (NOT hyp)) OR hyp)" data-entail="-0.06330322" data-neutral="0.022027269" data-contra="0.009290368" data-snli-entropy="1.046715427905545">
+  <div class="card-body">
+    <h5 class="card-title">Unit 6 (((((NOT oth:overlap:overlap25) AND pre:tag:nn) AND (NOT hyp:tok:people)) AND (NOT hyp:tok:walking)) OR hyp:tok:tall)</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><span class='category text-muted'>(((((NOT oth) AND pre) AND (NOT hyp)) AND (NOT hyp)) OR hyp)</span> IoU: 0.233 Entail: <span class='word' data-act='-0.633'>-0.063</span> Neutral: <span class='word' data-act='0.220'>0.022</span> Contra: <span class='word' data-act='0.093'>0.009</span></h6>
+    
+<div class="accordion mb-2" id="a6-accordion">
+  <div class="card">
+    <div class="card-header" id="a6-0-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#a6-0">
+        Highest Act (SNLI)
+        </button>
+      </h2>
+    </div>
+
+    <div id="a6-0" class="collapse" data-parent="#a6-accordion">
+      <div class="card-body">
+          <ul class='list-group list-group-flush'><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>black</span><span class='word' data-act='0'>jacket</span><span class='word' data-act='0'>plays</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>his</span><span class='word' data-act='0'>smartphone</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>little</span><span class='word' data-act='0'>girl</span><span class='word' data-act='0'>next</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>him</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>scarf</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jacket</span><span class='word' data-act='0'>reads</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>book</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>person</span><span class='word' data-act='0'>owns</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>iphone</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.96'>29.58</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>strangely</span><span class='word' data-act='0'>dressed</span><span class='word' data-act='0'>guys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>orange</span><span class='word' data-act='0'>wig</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>sunglasses</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>peace</span><span class='word' data-act='0'>signs</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>karate</span><span class='word' data-act='0'>costume</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>UNK</span><span class='word' data-act='0'>belt</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>another</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>curly</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>wig</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>heart</span><span class='word' data-act='0'>shaped</span><span class='word' data-act='0'>sunglasses</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>karate</span><span class='word' data-act='0'>outfit</span><span class='word' data-act='0'>painted</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>leaves</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>third</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>pink</span><span class='word' data-act='0'>underwear</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>black</span><span class='word' data-act='0'>afro</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>giant</span><span class='word' data-act='0'>sunglasses</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>outfits</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>halloween</span><span class='word' data-act='0'>costumes</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.78'>27.84</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>&quot;</span><span class='word' data-act='0'>backyard</span><span class='word' data-act='0'>babies</span><span class='word' data-act='0'>&quot;</span><span class='word' data-act='0'>has</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>black</span><span class='word' data-act='0'>box</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>front</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>him</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>crowd</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>chairs</span><span class='word' data-act='0'>behind</span><span class='word' data-act='0'>him</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>is</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>magician</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.72'>27.15</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>several</span><span class='word' data-act='0'>men</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>women</span><span class='word' data-act='0'>working</span><span class='word' data-act='0'>out</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>gym</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>few</span><span class='word' data-act='0'>other</span><span class='word' data-act='0'>people</span><span class='word' data-act='0'>videotape</span><span class='word' data-act='0'>them</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>feats</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>worthy</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>film</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.66'>26.61</span></span> <strong>GT</strong> <span class='word UNK'>UNK</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>band</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>musicians</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>playing</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>intimate</span><span class='word' data-act='0'>concert</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>small</span><span class='word' data-act='0'>crowd</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>outdoor</span><span class='word' data-act='0'>courtyard</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>band</span><span class='word' data-act='0'>is</span><span class='word' data-act='0'>paid</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.53'>25.29</span></span> <strong>GT</strong> <span class='word UNK'>UNK</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="a6-1-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#a6-1">
+        Other examples of mask (SNLI)
+        </button>
+      </h2>
+    </div>
+
+    <div id="a6-1" class="collapse" data-parent="#a6-accordion">
+      <div class="card-body">
+          <ul class='list-group list-group-flush'><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>numbered</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>wash</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word entailment'>entailment</span> <strong>PRED</strong> <span class='word entailment'>entailment</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>at</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>ballgame</span><span class='word' data-act='0'>wash</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>jackets</span><span class='word' data-act='0'>walk</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>school</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='0.55'>5.46</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>selling</span><span class='word' data-act='0'>donuts</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>customer</span><span class='word' data-act='0'>during</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>world</span><span class='word' data-act='0'>exhibition</span><span class='word' data-act='0'>event</span><span class='word' data-act='0'>held</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>city</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>angeles</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>woman</span><span class='word' data-act='0'>drinks</span><span class='word' data-act='0'>her</span><span class='word' data-act='0'>coffee</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>small</span><span class='word' data-act='0'>cafe</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>boys</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>opposing</span><span class='word' data-act='0'>teams</span><span class='word' data-act='0'>play</span><span class='word' data-act='0'>football</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>full</span><span class='word' data-act='0'>protection</span><span class='word' data-act='0'>uniforms</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>helmets</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>dog</span><span class='word' data-act='0'>eats</span><span class='word' data-act='0'>out</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>bowl</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='0.26'>2.61</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="cm-section">
+    
+<div class="cm">
+<h5 class="text-muted cmtitle">SNLI (Acc: 0.79 Entropy: 1.05)</h5>
+<table class="table card-table cmtable">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">PRED: entail</th>
+      <th scope="col">PRED: neutral</th>
+      <th scope="col">PRED: contra </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">GT: entail</th>
+      <td>432</td>
+      <td>81</td>
+      <td>51</td>
+    </tr>
+    <tr>
+      <th scope="row">GT: neutral</th>
+      <td>95</td>
+      <td>774</td>
+      <td>173</td>
+    </tr>
+    <tr>
+      <th scope="row">GT: contra</th>
+      <td>50</td>
+      <td>169</td>
+      <td>1070</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="card unit" data-unit="0" data-iou="0.355" data-label="(((((NOT oth:overlap:overlap50) AND pre:tag:nn) AND (NOT hyp:tok:to)) AND (NOT hyp:tok:outside)) AND (NOT hyp:tok:outdoors))" data-category="(((((NOT oth) AND pre) AND (NOT hyp)) AND (NOT hyp)) AND (NOT hyp))" data-entail="-0.026803894" data-neutral="-0.017842982" data-contra="0.02657936" data-snli-entropy="1.0823271234158365">
+  <div class="card-body">
+    <h5 class="card-title">Unit 0 (((((NOT oth:overlap:overlap50) AND pre:tag:nn) AND (NOT hyp:tok:to)) AND (NOT hyp:tok:outside)) AND (NOT hyp:tok:outdoors))</h5>
+    <h6 class="card-subtitle mb-2 text-muted"><span class='category text-muted'>(((((NOT oth) AND pre) AND (NOT hyp)) AND (NOT hyp)) AND (NOT hyp))</span> IoU: 0.355 Entail: <span class='word' data-act='-0.268'>-0.027</span> Neutral: <span class='word' data-act='-0.178'>-0.018</span> Contra: <span class='word' data-act='0.266'>0.027</span></h6>
+    
+<div class="accordion mb-2" id="a0-accordion">
+  <div class="card">
+    <div class="card-header" id="a0-0-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#a0-0">
+        Highest Act (SNLI)
+        </button>
+      </h2>
+    </div>
+
+    <div id="a0-0" class="collapse" data-parent="#a0-accordion">
+      <div class="card-body">
+          <ul class='list-group list-group-flush'><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>men</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>cherry</span><span class='word' data-act='0'>picker</span><span class='word' data-act='0'>proceeding</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>perform</span><span class='word' data-act='0'>work</span><span class='word' data-act='0'>at</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>construction</span><span class='word' data-act='0'>site</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>men</span><span class='word' data-act='0'>driving</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>truck</span><span class='word' data-act='0'>down</span><span class='word' data-act='0'>an</span><span class='word' data-act='0'>empty</span><span class='word' data-act='0'>highway</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='3.88'>38.83</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>smiling</span><span class='word' data-act='0'>woman</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>yellow</span><span class='word' data-act='0'>shirt</span><span class='word' data-act='0'>gesturing</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>pig</span><span class='word' data-act='0'>was</span><span class='word' data-act='0'>eating</span><span class='word' data-act='0'>monkeys</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='3.81'>38.08</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>these</span><span class='word' data-act='0'>two</span><span class='word' data-act='0'>poodles</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>black</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>brown</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>playing</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>cats</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>brown</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>red</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='3.79'>37.90</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>on</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sunny</span><span class='word' data-act='0'>day</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>lush</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>green</span><span class='word' data-act='0'>field</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>small</span><span class='word' data-act='0'>girl</span><span class='word' data-act='0'>inspects</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>rock</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>her</span><span class='word' data-act='0'>friend</span><span class='word' data-act='0'>goes</span><span class='word' data-act='0'>off</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>another</span><span class='word' data-act='0'>direction</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>girl</span><span class='word' data-act='0'>sleeps</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='3.71'>37.09</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>square</span><span class='word' data-act='0'>full</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>people</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>life</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>the</span><span class='word' data-act='0'>park</span><span class='word' data-act='0'>plaza</span><span class='word' data-act='0'>is</span><span class='word' data-act='0'>absolutely</span><span class='word' data-act='0'>empty</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='3.65'>36.51</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" id="a0-1-header">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#a0-1">
+        Other examples of mask (SNLI)
+        </button>
+      </h2>
+    </div>
+
+    <div id="a0-1" class="collapse" data-parent="#a0-accordion">
+      <div class="card-body">
+          <ul class='list-group list-group-flush'><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>numbered</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>wash</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word entailment'>entailment</span> <strong>PRED</strong> <span class='word entailment'>entailment</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>children</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>blue</span><span class='word' data-act='0'>jerseys</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>9</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>one</span><span class='word' data-act='0'>with</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>number</span><span class='word' data-act='0'>2</span><span class='word' data-act='0'>are</span><span class='word' data-act='0'>standing</span><span class='word' data-act='0'>on</span><span class='word' data-act='0'>wooden</span><span class='word' data-act='0'>steps</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>bathroom</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>washing</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>sink</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>kids</span><span class='word' data-act='0'>at</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>ballgame</span><span class='word' data-act='0'>wash</span><span class='word' data-act='0'>their</span><span class='word' data-act='0'>hands</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word neutral'>neutral</span> <strong>PRED</strong> <span class='word neutral'>neutral</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>man</span><span class='word' data-act='0'>selling</span><span class='word' data-act='0'>donuts</span><span class='word' data-act='0'>to</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>customer</span><span class='word' data-act='0'>during</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>world</span><span class='word' data-act='0'>exhibition</span><span class='word' data-act='0'>event</span><span class='word' data-act='0'>held</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>the</span><span class='word' data-act='0'>city</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>angeles</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>a</span><span class='word' data-act='0'>woman</span><span class='word' data-act='0'>drinks</span><span class='word' data-act='0'>her</span><span class='word' data-act='0'>coffee</span><span class='word' data-act='0'>in</span><span class='word' data-act='0'>a</span><span class='word' data-act='0'>small</span><span class='word' data-act='0'>cafe</span><span class='word' data-act='0'>.</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='1.48'>14.84</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>boys</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>opposing</span><span class='word' data-act='0'>teams</span><span class='word' data-act='0'>play</span><span class='word' data-act='0'>football</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>full</span><span class='word' data-act='0'>protection</span><span class='word' data-act='0'>uniforms</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>helmets</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>boys</span><span class='word' data-act='0'>play</span><span class='word' data-act='0'>football</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='-1.00'>0.00</span></span> <strong>GT</strong> <span class='word entailment'>entailment</span> <strong>PRED</strong> <span class='word entailment'>entailment</span></div></div></li><li class='sentence list-group-item'><div class='pair'><div class='pre'><strong>Premise:</strong> <span class='word' data-act='0'>two</span><span class='word' data-act='0'>young</span><span class='word' data-act='0'>boys</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>opposing</span><span class='word' data-act='0'>teams</span><span class='word' data-act='0'>play</span><span class='word' data-act='0'>football</span><span class='word' data-act='0'>,</span><span class='word' data-act='0'>while</span><span class='word' data-act='0'>wearing</span><span class='word' data-act='0'>full</span><span class='word' data-act='0'>protection</span><span class='word' data-act='0'>uniforms</span><span class='word' data-act='0'>and</span><span class='word' data-act='0'>helmets</span><span class='word' data-act='0'>.</span></div><div class='hyp'><strong>Hypothesis:</strong> <span class='word' data-act='0'>dog</span><span class='word' data-act='0'>eats</span><span class='word' data-act='0'>out</span><span class='word' data-act='0'>of</span><span class='word' data-act='0'>bowl</span></div><div class='pairinfo'><span class='act'><strong>ACT</strong> <span class='word' data-act='2.22'>22.24</span></span> <strong>GT</strong> <span class='word contradiction'>contradiction</span> <strong>PRED</strong> <span class='word contradiction'>contradiction</span></div></div></li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="cm-section">
+    
+<div class="cm">
+<h5 class="text-muted cmtitle">SNLI (Acc: 0.78 Entropy: 1.08)</h5>
+<table class="table card-table cmtable">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">PRED: entail</th>
+      <th scope="col">PRED: neutral</th>
+      <th scope="col">PRED: contra </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">GT: entail</th>
+      <td>1238</td>
+      <td>236</td>
+      <td>99</td>
+    </tr>
+    <tr>
+      <th scope="row">GT: neutral</th>
+      <td>229</td>
+      <td>1362</td>
+      <td>338</td>
+    </tr>
+    <tr>
+      <th scope="row">GT: contra</th>
+      <td>113</td>
+      <td>288</td>
+      <td>2046</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+    </div>
+    
+  </div>
+</div>
+
+
+</div>
+<script>
+$(document).ready(function() {
+    $('.neuron').mouseover(function() {
+        var neuron = parseInt($(this).data('neuron'));
+        $('.word').each(function() {
+            var actn = 'act-' + neuron;
+            if ($(this).data(actn)) {
+                var val = parseFloat($(this).data(actn));
+                if (val > 0) {
+                    var alpha = Math.min(1.0, Math.max(0.0, val));
+                    var bg = 'rgba(0, 0, 255, ' + alpha + ')';
+                } else {
+                    var alpha = Math.min(1.0, Math.max(0.0, -val));
+                    var bg = 'rgba(255, 0, 0, ' + alpha + ')';
+                }
+                $(this).css('background-color', bg);
+            }
+        });
+    });
+    $('.word').each(function() {
+        if ($(this).data('act')) {
+            var val = parseFloat($(this).data('act'));
+            if (val > 0) {
+                var alpha = Math.min(1.0, Math.max(0.0, val));
+                var bg = 'rgba(0, 0, 255, ' + alpha + ')';
+            } else {
+                var alpha = Math.min(1.0, Math.max(0.0, -val));
+                var bg = 'rgba(255, 0, 0, ' + alpha + ')';
+            }
+            $(this).css('background-color', bg);
+        }
+    });
+    $('.sortby').click(function() {
+        if ($(this).hasClass('currentsort')) {
+            if ($(this).hasClass('sort-up')) {
+                // switch to negative sort
+                var dir = -1;
+                $(this).removeClass('sort-up');
+                $(this).addClass('sort-down');
+            } else {
+                // switch to positive sort
+                var dir = 1;
+                $(this).removeClass('sort-down');
+                $(this).addClass('sort-up');
+            }
+        } else {
+            // default to positive sort
+            var dir = 1;
+            $('.sortby').removeClass('currentsort');
+            $('.sortby').removeClass('sort-up');
+            $('.sortby').removeClass('sort-down');
+            $(this).addClass('currentsort');
+            $(this).addClass('sort-up');
+        }
+        var attr = $(this).data('sortby');
+        $('.card-deck-b .card.unit').sort(function(a, b) {
+            return dir * ($(a).data(attr) > $(b).data(attr) ? 1 : -1);
+        }).appendTo(".card-deck-b");
+    });
+    $('[data-toggle="tooltip"]').tooltip()
+});
+</script>
+
+</body>
+</html>

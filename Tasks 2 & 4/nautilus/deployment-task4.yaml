@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internkevinc-task4-dev
+  namespace: aiea-interns
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: internkevinc-task4-dev
+  template:
+    metadata:
+      labels:
+        app: internkevinc-task4-dev
+    spec:
+      containers:
+        - name: dev
+          image: pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime
+          command: ["sleep", "infinity"]
+          resources:
+            requests:
+              cpu: "8"
+              memory: "16Gi"
+            limits:
+              cpu: "8"
+              memory: "64Gi"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: internkevinc-task4
