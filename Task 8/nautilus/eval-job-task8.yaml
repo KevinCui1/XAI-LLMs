@@ -1,0 +1,42 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: internkevinc-task8-eval
+  namespace: aiea-interns
+spec:
+  backoffLimit: 2
+  activeDeadlineSeconds: 3600
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: eval
+          image: pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+          env:
+            - name: HF_HOME
+              value: /data/hf_cache
+            - name: OMP_NUM_THREADS
+              value: "8"
+          command:
+            - "bash"
+            - "-c"
+            - |
+              set -e
+              cd /data/task8
+              pip install -q -r requirements.txt
+              python -u eval_nli.py \
+                --output-dir /data/task8/outputs/qwen3-0.6b-nli-full
+          resources:
+            requests:
+              cpu: "8"
+              memory: "24Gi"
+            limits:
+              cpu: "8"
+              memory: "28Gi"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: internkevinc-task8

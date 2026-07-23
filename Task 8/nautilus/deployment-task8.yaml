@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internkevinc-task8-dev
+  namespace: aiea-interns
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: internkevinc-task8-dev
+  template:
+    metadata:
+      labels:
+        app: internkevinc-task8-dev
+    spec:
+      containers:
+        - name: dev
+          image: pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+          command: ["sleep", "infinity"]
+          env:
+            - name: HF_HOME
+              value: /data/hf_cache
+          resources:
+            requests:
+              cpu: "4"
+              memory: "16Gi"
+              nvidia.com/gpu: "1"
+            limits:
+              cpu: "8"
+              memory: "32Gi"
+              nvidia.com/gpu: "1"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: internkevinc-task8

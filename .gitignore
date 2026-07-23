@@ -136,3 +136,4 @@ models/bowman_snli/*.pth
 
 # Large regenerated activation dump (recreated by analyze.py)
 exp/**/preds_acts.csv
+Task 8/outputs/

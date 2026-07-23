@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: internkevinc-task8-run
+  namespace: aiea-interns
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 7200
+  template:
+    spec:
+      restartPolicy: Never
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: nvidia.com/gpu.memory
+                    operator: Gt
+                    values: ["10000"]
+      containers:
+        - name: run
+          image: pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+          env:
+            - name: HF_HOME
+              value: /data/hf_cache
+            - name: PYTORCH_CUDA_ALLOC_CONF
+              value: expandable_segments:True
+          command:
+            - "bash"
+            - "-c"
+            - |
+              set -e
+              cd /data/task8
+              pip install -q -r requirements.txt
+              python -u train_qwen_nli.py \
+                --output-dir /data/task8/outputs/qwen3-0.6b-nli-full \
+                --train-batch-size 64 \
+                --gradient-accumulation-steps 1 \
+                --epochs 2
+          resources:
+            requests:
+              cpu: "4"
+              memory: "16Gi"
+              nvidia.com/gpu: "1"
+            limits:
+              cpu: "4"
+              memory: "18Gi"
+              nvidia.com/gpu: "1"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: internkevinc-task8
